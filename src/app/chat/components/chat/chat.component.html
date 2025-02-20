@@ -1,0 +1,79 @@
+<div class="chat-container">
+  <app-room-list></app-room-list>
+  
+  <div class="chat-main">
+    <div class="chat-header">
+      <div class="chat-info">
+        <h2>{{ currentRoomId ? 'Room Name' : 'Select a Room' }}</h2>
+        <p *ngIf="currentRoomId">3 members online</p>
+      </div>
+      <div class="chat-actions">
+        <button class="action-button">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="action-button">
+          <i class="fas fa-phone"></i>
+        </button>
+        <button class="action-button">
+          <i class="fas fa-video"></i>
+        </button>
+        <button class="action-button">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+    </div>
+
+    <div #messageContainer class="messages-container">
+      <div class="messages-list">
+        <ng-container *ngFor="let message of messages; let i = index">
+          <!-- Date separator -->
+          <div class="date-separator" *ngIf="i === 0 || getMessageDate(message.timestamp) !== getMessageDate(messages[i-1].timestamp)">
+            <span>{{ getMessageDate(message.timestamp) }}</span>
+          </div>
+
+          <!-- Message -->
+          <div class="message" [class.outgoing]="isCurrentUser(message.senderId)">
+            <div class="message-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="message-content">
+              <div class="message-header">
+                <span class="sender-name">{{ message.senderName }}</span>
+                <span class="message-time">{{ getMessageTime(message.timestamp) }}</span>
+              </div>
+              <div class="message-bubble">
+                {{ message.content }}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <div class="input-actions">
+        <button class="action-button">
+          <i class="fas fa-paperclip"></i>
+        </button>
+      </div>
+      <input 
+        type="text" 
+        [(ngModel)]="newMessage" 
+        placeholder="Type a message..."
+        (keyup.enter)="sendMessage()"
+      >
+      <div class="input-actions">
+        <button class="action-button">
+          <i class="fas fa-smile"></i>
+        </button>
+        <button 
+          class="send-button" 
+          [class.active]="newMessage.trim()"
+          (click)="sendMessage()"
+        >
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

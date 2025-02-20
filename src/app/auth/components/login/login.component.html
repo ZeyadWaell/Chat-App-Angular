@@ -1,11 +1,55 @@
-<div class="container">
-    <label for="email">Email</label>
-    <input (keyup)="onKeyup($event)" type="email" id="email" name="email" required>
-</div>
-<div class="container">
-    <label for="password">Password</label>
-    <input (keyup)="onKeyup($event)" type="password" id="password" name="password" required>
-</div>
-<div class="container">
-    <button type="submit">Login</button>
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Welcome Back!</h2>
+      <p>Please login to continue</p>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-container">
+          <i class="fas fa-envelope"></i>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="Enter your email" 
+            [class.error]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+            required>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-container">
+          <i class="fas fa-lock"></i>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            placeholder="Enter your password" 
+            [class.error]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+            required>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+      <div class="form-actions">
+        <div class="remember-me">
+          <input type="checkbox" id="remember" formControlName="rememberMe">
+          <label for="remember">Remember me</label>
+        </div>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+      <button type="submit" class="login-button" [disabled]="loginForm.invalid">Login</button>
+      <div class="register-link">
+        Don't have an account? <a routerLink="/auth/register">Register now</a>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatComponent } from './components/chat/chat.component';
+import { RoomListComponent } from './components/room-list/room-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'messages', pathMatch: 'full' },
-  { path: 'messages', loadChildren: () => import('./components/messages/messages.module').then(m => m.MessagesModule) }
+  { 
+    path: '', 
+    component: ChatComponent,
+    children: [
+      { path: '', component: RoomListComponent },
+      { path: ':roomId', component: ChatComponent }
+    ]
+  }
 ];
 
 @NgModule({

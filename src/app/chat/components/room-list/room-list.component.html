@@ -1,0 +1,41 @@
+<div class="room-list-container">
+  <div class="room-list-header">
+    <h2>Chat Rooms</h2>
+    <div class="new-room-form">
+      <input 
+        type="text" 
+        [(ngModel)]="newRoomName" 
+        placeholder="Create new room..."
+        (keyup.enter)="createRoom()"
+      >
+      <button (click)="createRoom()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="room-list">
+    <div 
+      *ngFor="let room of rooms" 
+      class="room-item"
+      [class.active]="room.id === selectedRoomId"
+      (click)="selectRoom(room.id)"
+    >
+      <div class="room-avatar">
+        <i class="fas fa-comments"></i>
+      </div>
+      <div class="room-info">
+        <div class="room-header">
+          <h3 class="room-name">{{ room.name }}</h3>
+          <span class="room-time">{{ getLastMessageTime(room) }}</span>
+        </div>
+        <div class="room-preview">
+          <p>{{ getLastMessage(room) }}</p>
+          <span class="unread-count" *ngIf="room.unreadCount">
+            {{ room.unreadCount }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
