@@ -1,17 +1,6 @@
 <div class="room-list-container">
   <div class="room-list-header">
     <h2>Chat Rooms</h2>
-    <div class="new-room-form">
-      <input 
-        type="text" 
-        [(ngModel)]="newRoomName" 
-        placeholder="Create new room..."
-        (keyup.enter)="createRoom()"
-      >
-      <button (click)="createRoom()">
-        <i class="fas fa-plus"></i>
-      </button>
-    </div>
   </div>
 
   <div class="room-list">

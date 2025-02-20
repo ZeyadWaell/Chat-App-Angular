@@ -70,16 +70,6 @@ export class ChatService {
     return this.roomsSubject.asObservable();
   }
 
-  async createRoom(name: string): Promise<string> {
-    try {
-      const roomId = await this.hubConnection.invoke<string>('CreateRoom', name);
-      return roomId;
-    } catch (error) {
-      console.error('Error creating room:', error);
-      throw error;
-    }
-  }
-
   async joinRoom(roomId: string): Promise<void> {
     try {
       await this.hubConnection.invoke('JoinRoom', roomId);

@@ -46,17 +46,6 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  async createRoom() {
-    if (this.newRoomName.trim()) {
-      try {
-        const roomId = await this.chatService.createRoom(this.newRoomName);
-        this.newRoomName = '';
-        this.selectRoom(roomId);
-      } catch (error) {
-        console.error('Error creating room:', error);
-      }
-    }
-  }
 
   selectRoom(roomId: string) {
     this.selectedRoomId = roomId;
