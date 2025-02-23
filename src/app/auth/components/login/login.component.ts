@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Form submitted:', this.loginForm.value);
-      // Add your login logic here
     } else {
       this.markFormGroupTouched(this.loginForm);
     }
